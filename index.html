@@ -25,6 +25,7 @@
 @media print{#finish .look-back-questions{padding:0;margin:.08in 0 0}#finish .look-back-questions li{font-size:10pt;line-height:1.18}#finish .look-back-questions li+li{margin-top:.12in}}
 .next-steps li+li{margin-top:.45rem}
 @media print{#finish .next-steps{margin-top:.07in}#finish .next-steps li{font-size:10pt;line-height:1.18}#finish .next-steps li+li{margin-top:.045in}}
+.toolbar .primary-action{display:inline-block;border:1px solid var(--line);background:#203033;color:#fff;border-radius:999px;padding:.55rem .85rem;font:inherit;white-space:nowrap;cursor:pointer;text-decoration:none}
 </style>
 </head>
 <body>
@@ -49,7 +50,7 @@
     </details>
   </div>
   <div class="progress" aria-label="Packing progress"><span id="progressBar"></span></div>
-  <div><button class="primary" id="printBtn">Print / Save as PDF</button><button id="resetBtn">Start Over</button></div>
+  <div><a class="primary-action" href="https://drive.google.com/file/d/1hd7iRS5gZRhJdi517RPHSm6MnPOOZlr8/view?usp=sharing" target="_blank" rel="noopener noreferrer">Download PDF</a></div>
 </div>
 <main>
   <section class="intro wrap" id="before">
@@ -631,8 +632,6 @@ const boxes=[...document.querySelectorAll('[data-pack]')];
 const progress=document.getElementById('progressBar');
 function update(){const done=boxes.filter(b=>b.checked).length;progress.style.width=(boxes.length?done/boxes.length*100:0)+'%';localStorage.setItem('shoebox-packed',JSON.stringify(Object.fromEntries(boxes.map(b=>[b.dataset.pack,b.checked]))));}
 try{const saved=JSON.parse(localStorage.getItem('shoebox-packed')||'{}');boxes.forEach(b=>{b.checked=!!saved[b.dataset.pack];b.addEventListener('change',update);});update();}catch{boxes.forEach(b=>b.addEventListener('change',update));}
-document.getElementById('printBtn')?.addEventListener('click',()=>window.print());
-document.getElementById('resetBtn')?.addEventListener('click',()=>{boxes.forEach(b=>b.checked=false);update();});
 document.querySelectorAll('.sections-menu a').forEach(a=>a.addEventListener('click',()=>{const menu=a.closest('details'); if(menu) menu.open=false;}));
 </script>
 </body>
